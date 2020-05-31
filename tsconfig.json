@@ -3,16 +3,17 @@
     "target": "es2017",
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["es2017", "dom"],
-    "strict": true,
+    "lib": ["es2017", "dom", "dom.iterable"],
+    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "experimentalDecorators": true
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [],
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "importHelpers": true
+  }
 }

@@ -1,0 +1,12 @@
+{
+  "extends": "./.eslintrc-hound.json",
+  "plugins": ["react"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "import/no-unresolved": 2,
+    "linebreak-style": 0,
+    "implicit-arrow-linebreak": 0
+  }
+}

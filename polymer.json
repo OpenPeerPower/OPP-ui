@@ -1,69 +1,43 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/components/my-app.js",
-  "sources": [
-    "images/**/*"
+  "shell": "src/entrypoints/app.js",
+  "fragments": [
+    "src/panels/config/op-panel-config.js",
+    "src/panels/dev-event/op-panel-dev-event.js",
+    "src/panels/dev-info/op-panel-dev-info.js",
+    "src/panels/dev-mqtt/op-panel-dev-mqtt.js",
+    "src/panels/dev-service/op-panel-dev-service.js",
+    "src/panels/dev-state/op-panel-dev-state.js",
+    "src/panels/dev-template/op-panel-dev-template.js",
+    "src/panels/history/op-panel-history.js",
+    "src/panels/iframe/op-panel-iframe.js",
+    "src/panels/kiosk/op-panel-kiosk.js",
+    "src/panels/logbook/op-panel-logbook.js",
+    "src/panels/map/op-panel-map.js",
+    "src/panels/shopping-list/op-panel-shopping-list.js",
+    "src/panels/mailbox/op-panel-mailbox.js",
+    "oppio/src/entrypoint.js"
   ],
-  "extraDependencies": [
-    "manifest.json",
-    "node_modules/@webcomponents/webcomponentsjs/**",
-    "push-manifest.json"
-  ],
+  "sources": ["src/**/*", "!src/translations/*"],
+  "lint": {
+    "rules": ["polymer-3"],
+    "ignoreWarnings": ["could-not-resolve-reference", "could-not-load"],
+    "filesToIgnore": [
+      "**/*.html",
+      "**/src/panels/config/js/**/*.js",
+      "**/op-paper-slider.js",
+      "**/op-iconset-svg.js",
+      "**/op-script-editor.js",
+      "**/op-automation-editor.js",
+      "**/op-big-calendar.js"
+    ]
+  },
   "builds": [
     {
-      "name": "esm-bundled",
-      "browserCapabilities": [
-        "es2015",
-        "modules"
-      ],
-      "js": {
-        "minify": true
-      },
-      "css": {
-        "minify": true
-      },
-      "html": {
-        "minify": true
-      },
-      "bundle": true,
-      "addServiceWorker": true
+      "preset": "es5-bundled"
     },
     {
-      "name": "es6-bundled",
-      "browserCapabilities": [
-        "es2015"
-      ],
-      "js": {
-        "compile": "es2015",
-        "minify": true,
-        "transformModulesToAmd": true
-      },
-      "css": {
-        "minify": true
-      },
-      "html": {
-        "minify": true
-      },
-      "bundle": true,
-      "addServiceWorker": true
-    },
-    {
-      "name": "es5-bundled",
-      "js": {
-        "compile": "es5",
-        "minify": true,
-        "transformModulesToAmd": true
-      },
-      "css": {
-        "minify": true
-      },
-      "html": {
-        "minify": true
-      },
-      "bundle": true,
-      "addServiceWorker": true
+      "preset": "es6-bundled"
     }
-  ],
-  "moduleResolution": "node",
-  "npm": true
+  ]
 }
