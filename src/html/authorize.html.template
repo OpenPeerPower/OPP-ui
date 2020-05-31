@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Open Peer Power</title>
+    <link rel="preload" href="<%= latestPageJS %>" as="script" crossorigin="use-credentials" />
+    <link
+      rel="preload"
+      href="/static/fonts/roboto/Roboto-Light.woff2"
+      as="font"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/static/fonts/roboto/Roboto-Regular.woff2"
+      as="font"
+      crossorigin
+    />
+    <%= renderTemplate('_header') %>
+    <style>
+      .content {
+        padding: 20px 16px;
+        max-width: 360px;
+        margin: 0 auto;
+      }
+
+      .header {
+        font-size: 1.96em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 300;
+      }
+
+      .header img {
+        margin-right: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="header">
+        <img src="/static/icons/favicon-192x192.png" height="52" />
+        Open Peer Power
+      </div>
+      <op-authorize><p>Initializing</p></op-authorize>
+    </div>
+
+    <%= renderTemplate('_js_base') %>
+
+    <script type="module" crossorigin="use-credentials">
+      import "<%= latestPageJS %>";
+      import "<%= latestOppIconsJS %>";
+      window.providersPromise = fetch("/auth/providers", {
+        credentials: "same-origin",
+      });
+    </script>
+
+    <script nomodule>
+      (function() {
+        // Safari 10.1 supports type=module but ignores nomodule, so we add this check.
+        if (!isS101) {
+          _ls("/static/polyfills/custom-elements-es5-adapter.js");
+          _ls("<%= es5Compatibility %>");
+          _ls("<%= es5PageJS %>");
+          _ls("<%= es5OppIconsJS %>");
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+import {
+  html,
+  LitElement,
+  TemplateResult,
+  customElement,
+  property,
+  css,
+  CSSResult,
+} from "lit-element";
+import { safeDump } from "js-yaml";
+
+import { DevconCard } from "../types";
+import { OpenPeerPower } from "../../../types";
+import { ErrorCardConfig } from "./types";
+
+export const createErrorCardElement = (config: ErrorCardConfig) => {
+  const el = document.createElement("hui-error-card");
+  el.setConfig(config);
+  return el;
+};
+
+export const createErrorCardConfig = (error, origConfig) => ({
+  type: "error",
+  error,
+  origConfig,
+});
+
+@customElement("hui-error-card")
+export class HuiErrorCard extends LitElement implements DevconCard {
+  public opp?: OpenPeerPower;
+
+  @property() private _config?: ErrorCardConfig;
+
+  public getCardSize(): number {
+    return 4;
+  }
+
+  public setConfig(config: ErrorCardConfig): void {
+    this._config = config;
+  }
+
+  protected render(): TemplateResult {
+    if (!this._config) {
+      return html``;
+    }
+
+    return html`
+      ${this._config.error}
+      ${this._config.origConfig
+        ? html`
+            <pre>${safeDump(this._config.origConfig)}</pre>
+          `
+        : ""}
+    `;
+  }
+
+  static get styles(): CSSResult {
+    return css`
+      :host {
+        display: block;
+        background-color: #ef5350;
+        color: white;
+        padding: 8px;
+        font-weight: 500;
+        user-select: text;
+        cursor: default;
+      }
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "hui-error-card": HuiErrorCard;
+  }
+}
